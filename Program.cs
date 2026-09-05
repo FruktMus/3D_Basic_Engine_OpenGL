@@ -1,9 +1,7 @@
 ﻿class Program
 {
-    static void Test()
+    static void Main()
     {
-        Console.WriteLine("test");
-        Console.WriteLine("test1");
-        Console.WriteLine("test2"); 
+        Console.WriteLine("Hello, World!");
     } 
 }
