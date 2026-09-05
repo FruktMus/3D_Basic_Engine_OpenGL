@@ -2,6 +2,6 @@
 {
     static void Main()
     {
-        Console.WriteLine("fuckGithub");
+        Console.WriteLine("testingpush");
     }
 }
