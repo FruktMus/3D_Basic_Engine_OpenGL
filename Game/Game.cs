@@ -2,6 +2,7 @@
 
 public class Game
 {
+    private List<ISystem> iSystems = new();
     private List<MonoBehaviour> behaviours = new();
     const int fixedFPS = 30;
     const int cappedFPS = 100;
@@ -64,6 +65,20 @@ public class Game
 
     void Update(float deltaTime)
     {
+        UpdateSystems();
+        UpdateBehaviours(deltaTime);
+    }
+
+    void UpdateSystems()
+    {
+        foreach (var system in iSystems)
+        {
+            system.Update();
+        }
+    }
+
+    void UpdateBehaviours(float deltaTime)
+    {
         foreach (var behaviour in behaviours)
         {
             behaviour.Update(deltaTime);
@@ -82,6 +97,12 @@ public class Game
     {
         behaviours.Add(behaviour);
         behaviour.Start();
+    }
+
+    void ShutDown()
+    {
+        foreach (var system in iSystems)
+            system.Shutdown();
     }
 
 }
