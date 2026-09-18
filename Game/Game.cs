@@ -2,8 +2,8 @@
 
 public class Game
 {
-    private List<ISystem> iSystems = new();
-    private List<MonoBehaviour> behaviours = new();
+    private List<ISystem> _systems = new();
+    private List<MonoBehaviour> _behaviours = new();  //kanske ska sätta i world senare eller passa till world tänker att world ska ha mer kontroll över bahaviours
     const int fixedFPS = 30;
     const int cappedFPS = 100;
     public void Loop()
@@ -31,7 +31,7 @@ public class Game
             fixedAccumulator = Math.Min(fixedAccumulator, fixedDeltaTime * 5);
 
             //fixed update
-            while (fixedDeltaTime < fixedAccumulator)
+            while (fixedDeltaTime <= fixedAccumulator)
             {
                 FixedUpdate(fixedDeltaTime);
 
@@ -58,9 +58,11 @@ public class Game
 
     }
 
+    private Window _window = new Window();
+
     void Start()
     {
-
+        AddSystem(_window);
     }
 
     void Update(float deltaTime)
@@ -71,7 +73,7 @@ public class Game
 
     void UpdateSystems()
     {
-        foreach (var system in iSystems)
+        foreach (var system in _systems)
         {
             system.Update();
         }
@@ -79,7 +81,7 @@ public class Game
 
     void UpdateBehaviours(float deltaTime)
     {
-        foreach (var behaviour in behaviours)
+        foreach (var behaviour in _behaviours)
         {
             behaviour.Update(deltaTime);
         }
@@ -87,7 +89,8 @@ public class Game
 
     void FixedUpdate(float fixedDeltaTime)
     {
-        foreach (var behaviour in behaviours)
+        //fixedUpdates for behaviours
+        foreach (var behaviour in _behaviours)
         {
             behaviour.FixedUpdate(fixedDeltaTime);
         }
@@ -95,13 +98,19 @@ public class Game
 
     public void AddBehaviour(MonoBehaviour behaviour)
     {
-        behaviours.Add(behaviour);
+        _behaviours.Add(behaviour);
         behaviour.Start();
+    }
+
+    public void AddSystem(ISystem system)
+    {
+        _systems.Add(system);
+        system.Initialize();
     }
 
     void ShutDown()
     {
-        foreach (var system in iSystems)
+        foreach (var system in _systems)
             system.Shutdown();
     }
 

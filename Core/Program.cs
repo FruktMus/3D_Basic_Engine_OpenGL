@@ -9,3 +9,9 @@ class Program
         game.Loop();
     } 
 }
+
+
+
+//structure plans 
+//World is more responisble for the monobehaviour more type stuff 
+//Game is more responsible for the ISystem type stuff     // follow more webgl project structure 
