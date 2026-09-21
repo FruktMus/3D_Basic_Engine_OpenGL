@@ -1,114 +1,59 @@
-﻿using System.Diagnostics;
-
-public class Game
+﻿public class Game
 {
-    private List<ISystem> _systems = new();
-    private List<MonoBehaviour> _behaviours = new();  //kanske ska sätta i world senare eller passa till world tänker att world ska ha mer kontroll över bahaviours
-    const int fixedFPS = 30;
-    const int cappedFPS = 100;
-    public void Loop()
+    private readonly World _world = new World();
+    private readonly GameLoop _gameLoop = new GameLoop();
+    private readonly List<ISystem> _systems = new();
+    
+    private readonly Window _window = new Window();
+
+    public void Run()
     {
-        Stopwatch stopwatch = Stopwatch.StartNew();
-
-        const float fixedDeltaTime = 1f / fixedFPS;
-        const float targetFrameTime = 1f / cappedFPS;
-
-        float fixedAccumulator = 0f;
-        double lastTime = stopwatch.Elapsed.TotalSeconds;
-
-        double sleepThreshold = Math.Max(0.005, targetFrameTime * 1.5);
-
         Start();
 
-        while (true)
+        while (!_window.State.IsClosing) // gameloop
         {
-            double frameStart = stopwatch.Elapsed.TotalSeconds;
-            float deltaTime = (float)(frameStart - lastTime);
-            lastTime = frameStart;
-            deltaTime = Math.Min(deltaTime, 0.25f);
+            _gameLoop.Loop();
 
-            fixedAccumulator += deltaTime;
-            fixedAccumulator = Math.Min(fixedAccumulator, fixedDeltaTime * 5);
-
-            //fixed update
-            while (fixedDeltaTime <= fixedAccumulator)
-            {
-                FixedUpdate(fixedDeltaTime);
-
-                fixedAccumulator -= fixedDeltaTime;
-            }
-
-            Update(deltaTime);
-
-            double frameEnd = stopwatch.Elapsed.TotalSeconds;
-            double frameTime = frameEnd - frameStart;
-            double remainingTime = targetFrameTime - frameTime;
-
-            if (remainingTime > 0)
-            {
-                // Sleep most of it (coarse)
-                if (remainingTime > sleepThreshold)
-                    Thread.Sleep((int)((remainingTime - 0.001) * 1000));
-
-                while (stopwatch.Elapsed.TotalSeconds - frameStart < targetFrameTime)
-                    Thread.SpinWait(1);
-            }
-
+            if (_gameLoop.ShouldUpdate)
+                Update(_gameLoop.DeltaTime);
+            
+            for (int i = 0; i < _gameLoop.FixedUpdateCount; i++)
+                FixedUpdate(_gameLoop.FixedDeltaTime);
         }
 
+        ShutDown();
     }
 
-    private Window _window = new Window();
-
-    void Start()
+    private void Start()
     {
         AddSystem(_window);
+        _world.Start();
     }
 
-    void Update(float deltaTime)
+    private void Update(float deltaTime)
     {
         UpdateSystems();
-        UpdateBehaviours(deltaTime);
+        _world.Update(deltaTime);
     }
 
-    void UpdateSystems()
+    private void UpdateSystems()
     {
         foreach (var system in _systems)
-        {
             system.Update();
-        }
     }
 
-    void UpdateBehaviours(float deltaTime)
+    private void FixedUpdate(float fixedDeltaTime)
     {
-        foreach (var behaviour in _behaviours)
-        {
-            behaviour.Update(deltaTime);
-        }
+        _world.FixedUpdate(fixedDeltaTime);
     }
 
-    void FixedUpdate(float fixedDeltaTime)
-    {
-        //fixedUpdates for behaviours
-        foreach (var behaviour in _behaviours)
-        {
-            behaviour.FixedUpdate(fixedDeltaTime);
-        }
-    }
-
-    public void AddBehaviour(MonoBehaviour behaviour)
-    {
-        _behaviours.Add(behaviour);
-        behaviour.Start();
-    }
-
-    public void AddSystem(ISystem system)
+    private void AddSystem(ISystem system)
     {
         _systems.Add(system);
         system.Initialize();
     }
 
-    void ShutDown()
+    private void ShutDown()
     {
         foreach (var system in _systems)
             system.Shutdown();
