@@ -1,11 +1,11 @@
 ﻿public class Game
 {
     private readonly World _world = new World();
+    private readonly Window _window = new Window();
     private readonly GameLoop _gameLoop = new GameLoop();
     private readonly List<ISystem> _systems = new();
     
-    private readonly Window _window = new Window();
-
+    
     public void Run()
     {
         Start();

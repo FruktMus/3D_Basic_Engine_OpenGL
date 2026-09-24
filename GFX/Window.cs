@@ -14,7 +14,11 @@ class Window : ISystem
         public Vector2i Size { get; init; }
     }
 
-    private WindowState _state;
+    private WindowState _state = new()
+    {
+        Size = _windowSize,
+        IsClosing = false
+    };
 
     public WindowState State => _state;
 
@@ -28,9 +32,11 @@ class Window : ISystem
 
         _window = new NativeWindow(nativeSettings);
 
-        _window.MakeCurrent();
+        //_window.MakeCurrent();
 
-        _window.Resize += OnResize; 
+        _window.Resize += OnResize;
+
+        //_window.Closing += OnClosing;  lägg till något liknande sen
     }
 
     private void OnResize(ResizeEventArgs e)
