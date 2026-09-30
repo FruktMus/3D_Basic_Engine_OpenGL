@@ -3,6 +3,8 @@
     private readonly World _world = new World();
     private readonly Window _window = new Window();
     private readonly GameLoop _gameLoop = new GameLoop();
+    private Renderer? _renderer;
+
     private readonly List<ISystem> _systems = new();
     
     
@@ -26,7 +28,10 @@
 
     private void Start()
     {
+        _renderer = new Renderer(_window); //FLAG temporary
+
         AddSystem(_window);
+        AddSystem(_renderer);
         _world.Start();
     }
 

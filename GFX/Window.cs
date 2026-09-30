@@ -1,8 +1,9 @@
 ﻿using OpenTK.Mathematics;
-using OpenTK.Windowing.Desktop;
 using OpenTK.Windowing.Common;
-
-class Window : ISystem
+using OpenTK.Windowing.Desktop;
+using OpenTK.Windowing.GraphicsLibraryFramework;
+using System.ComponentModel;
+public class Window : ISystem
 {
     private NativeWindow _window = null!;
 
@@ -32,11 +33,14 @@ class Window : ISystem
 
         _window = new NativeWindow(nativeSettings);
 
-        //_window.MakeCurrent();
-
         _window.Resize += OnResize;
+        _window.Closing += OnClosing;
+    }
 
-        //_window.Closing += OnClosing;  lägg till något liknande sen
+    public void Update()
+    {
+        _window.Context.SwapBuffers();
+        _window.ProcessEvents(0);
     }
 
     private void OnResize(ResizeEventArgs e)
@@ -47,5 +51,23 @@ class Window : ISystem
             IsClosing = _state.IsClosing
         };
     }
-    
+
+    private void OnClosing(CancelEventArgs e)
+    {
+        _state = new WindowState
+        {
+            Size = _state.Size,
+            IsClosing = true
+        };
+    }
+
+    public void Shutdown()
+    {
+        _window.Dispose();
+    }
+
+    public void MakeCurrent()
+    {
+        _window.MakeCurrent();
+    }
 }
