@@ -2,7 +2,7 @@
 
 public class Renderer : ISystem
 {
-    private readonly Window _window; ////////FLAG kanske temporär lär finnas bättre sätt               //////////////////////////FLAG fungerar inte alls byter inte backrundsfärg när man starar något är weird
+    private readonly Window _window; ////////FLAG kanske temporär lär finnas bättre sätt 
     public Renderer(Window window)
     {
         _window = window;
