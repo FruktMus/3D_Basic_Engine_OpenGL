@@ -1,36 +1,42 @@
 ﻿using OpenTK.Graphics.OpenGL4;
 
-public class Mesh
+public class Mesh : ISystem
 {
-    public int VAO { get; private set; }
-    public int VBO { get; private set; }
-    public int EBO { get; private set; }
+    private int _vao { get; }
+    private int _vbo { get; }
+    private int _ebo { get; }
+    public int IndexCount { get; }
 
 
-    public int IndexCount { get; private set; }
-
-    public Mesh(float[] indices, float[] vertices)
+    public Mesh(VertexData data)
     {
-        VAO = GL.GenVertexArray();
-        GL.BindVertexArray(VAO);
+        _vao = GL.GenVertexArray();
+        GL.BindVertexArray(_vao);
 
-        EBO = GL.GenBuffer();
-        GL.BindBuffer(BufferTarget.ElementArrayBuffer, EBO);
+        _ebo = GL.GenBuffer();
+        GL.BindBuffer(BufferTarget.ElementArrayBuffer, _ebo);
         GL.BufferData(
             BufferTarget.ElementArrayBuffer,
-            indices.Length * sizeof(int), 
-            indices,
+            data.Indices.Length * sizeof(uint), 
+            data.Indices,
             BufferUsageHint.StaticDraw
         );
 
-        VBO = GL.GenBuffer();
-        GL.BindBuffer(BufferTarget.ArrayBuffer, VBO);
+        _vbo = GL.GenBuffer();
+        GL.BindBuffer(BufferTarget.ArrayBuffer, _vbo);
         GL.BufferData(
             BufferTarget.ArrayBuffer, 
-            vertices.Length * sizeof(float), 
-            vertices, 
+            data.Vertices.Length * sizeof(float), 
+            data.Vertices, 
             BufferUsageHint.StaticDraw
         );
+
+        foreach (var attrib in data.Attributes)
+        {
+            attrib.Configure(data.Stride);
+        }
+
+
 
         //vertex attrib pointers:
         /*Exempel
@@ -46,14 +52,15 @@ public class Mesh
 
 
         GL.BindVertexArray(0);
-        IndexCount = indices.Length;
+        IndexCount = data.Indices.Length;
     }
 
     public void Bind()
     {
-        GL.BindVertexArray(VAO);
+        GL.BindVertexArray(_vao);
     }
 
+    /*   ////////////////Förmodligen bättre om renderer använder draw istället kanske använder denna temporärt dock
     public void Draw()
     {
         Bind(); 
@@ -64,7 +71,13 @@ public class Mesh
             DrawElementsType.UnsignedInt, 
             0
         );
-    }
+    }*/
 
+    public void Dispose()
+    {
+        GL.DeleteVertexArray(_vao);
+        GL.DeleteBuffer(_vbo);
+        GL.DeleteBuffer(_ebo);
+    }
 
 }

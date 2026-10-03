@@ -15,3 +15,4 @@ class Program
 //structure plans 
 //World is more responisble for the monobehaviour more type stuff 
 //Game is more responsible for the ISystem type stuff     // follow more webgl project structure 
+// resources(shader, texture, Mesh...) should be IDisposable instead of ISystem(not really part of system) //Fixa nästa fredag

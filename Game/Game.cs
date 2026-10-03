@@ -7,7 +7,6 @@
 
     private readonly List<ISystem> _systems = new();
     
-    
     public void Run()
     {
         Start();
@@ -61,7 +60,11 @@
     private void ShutDown()
     {
         foreach (var system in _systems)
+        {
+            system.Dispose();
             system.Shutdown();
+        }
+            
     }
 
 }

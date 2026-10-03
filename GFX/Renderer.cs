@@ -15,7 +15,7 @@ public class Renderer : ISystem
         GL.ClearColor(0.2f, 0.4f, 0.5f, 1.0f); // backround color 
     }
 
-    public void Update()
+    public void Render()
     {
         ClearScreen();
     }

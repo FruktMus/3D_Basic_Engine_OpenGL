@@ -61,8 +61,9 @@ public class Window : ISystem
         };
     }
 
-    public void Shutdown()
+    public void Dispose()
     {
+        _window.Close();
         _window.Dispose();
     }
 
