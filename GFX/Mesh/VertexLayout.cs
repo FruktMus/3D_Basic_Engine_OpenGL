@@ -1,4 +1,5 @@
-﻿public class VertexLayout
+﻿/*
+public class VertexLayout
 {
     public struct VertexAttribute
     {
@@ -13,4 +14,4 @@
     {
         Attributes = attributes;
     }
-}
+}*/

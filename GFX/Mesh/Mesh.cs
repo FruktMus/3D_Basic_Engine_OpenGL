@@ -1,6 +1,6 @@
 ﻿using OpenTK.Graphics.OpenGL4;
 
-public class Mesh : ISystem
+public class Mesh : IDisposable
 {
     private int _vao { get; }
     private int _vbo { get; }

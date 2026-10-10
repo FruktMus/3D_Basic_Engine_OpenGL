@@ -57,14 +57,13 @@
         system.Initialize();
     }
 
+
     private void ShutDown()
     {
         foreach (var system in _systems)
         {
-            system.Dispose();
             system.Shutdown();
         }
-            
     }
 
 }

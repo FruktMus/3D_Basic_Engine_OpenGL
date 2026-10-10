@@ -6,6 +6,7 @@ public class VertexData
     public uint[] Indices { get; }
     public float[] Vertices { get; }
     public VertexAttribute[] Attributes { get; }
+    //public PrimitiveType PrimitiveType { get; } //FLAG later use public PrimitiveType PrimitiveType to render different things e.g . points, lines, triangles, trianglestrip.
 
     public VertexData(
         int stride,
@@ -20,7 +21,7 @@ public class VertexData
         Attributes = attributes;
     }
 
-    public readonly record struct VertexAttribute //////////////FLAG late use public PrimitiveType PrimitiveType to render different things e.g . points, lines, triangles, trianglestrip.
+    public readonly record struct VertexAttribute
     (
         int Location,
         int ComponentCount,
