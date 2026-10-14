@@ -3,7 +3,6 @@ using OpenTK.Mathematics;
 
 public class Shader : IDisposable
 {
-    //private readonly Dictionary<string, int> _uniformLocations = new();
     public int program { get; }
 
     public Shader(string vertexSource, string fragmentSource)
@@ -13,7 +12,6 @@ public class Shader : IDisposable
         program = CreateShaderProgram(vertexShader, fragmentShader);
         GL.DeleteShader(vertexShader);
         GL.DeleteShader(fragmentShader);
-
     }
 
     private int CreateShader(ShaderType type, string source)

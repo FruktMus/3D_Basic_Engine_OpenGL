@@ -2,6 +2,6 @@
 {
     void Initialize() { }
     void Update() { }
-    void Render(Mesh mesh, Shader shader) { }
+    void Render(List<Renderable> renderables) { }
     void Shutdown() { }
 }

@@ -2,7 +2,9 @@
 
 public class Renderer : ISystem
 {
-    private readonly Window _window; ////////FLAG kanske temporär lär finnas bättre sätt 
+    private readonly Window _window;
+    public ShaderManager Shaders { get; private set; } = new ShaderManager();
+
     public Renderer(Window window)
     {
         _window = window;
@@ -13,20 +15,34 @@ public class Renderer : ISystem
         _window.MakeCurrent();
 
         GL.ClearColor(0.2f, 0.4f, 0.5f, 1.0f); // backround color 
+
+       
+        var basicShader = ShaderLoader.Load("Shaders/basic2d.vert", "Shaders/basic2d.frag");
+        Shaders.AddShader("basic2d", basicShader);
+
     }
 
-    public void Render(Mesh mesh, Shader shader) // FLAG maybe send a list of the meshes and shaders to render instead of one at a time 
-    //Maybe something like this instead idk public void Render(List<Mesh> mesh, List<Shader> shader) 
-    //maybe need to tie mesh and shader together have like a renderable object that has a mesh and shader together 
+    public void Render(List<Renderable> renderables) 
     {
         ClearScreen();
 
+        foreach (var renderable in renderables)
+        {
+            renderable.Shader.Use();
+            renderable.Mesh.Bind();
+            GL.DrawElements(PrimitiveType.Triangles, renderable.Mesh.IndexCount, DrawElementsType.UnsignedInt, 0);
+        }
 
     }
 
     void ClearScreen()
     {
         GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
+    }
+
+    public void Shutdown()
+    {
+        Shaders.Dispose();
     }
 
 }

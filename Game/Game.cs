@@ -1,7 +1,8 @@
 ﻿public class Game
 {
     private readonly World _world = new World();
-    private readonly Window _window = new Window();
+    private Window? _window;// = new Window();
+    private Camera? _camera;
     private readonly GameLoop _gameLoop = new GameLoop();
     private Renderer? _renderer;
 
@@ -10,6 +11,10 @@
     public void Run()
     {
         Start();
+
+        // Ensure _window is not null before accessing State
+        if (_window == null)
+            throw new InvalidOperationException("_window was not initialized in Start().");
 
         while (!_window.State.IsClosing) // gameloop
         {
@@ -27,7 +32,9 @@
 
     private void Start()
     {
-        _renderer = new Renderer(_window); //FLAG temporary
+        _camera = new Camera();
+        _window = new Window(_camera);
+        _renderer = new Renderer(_window);
 
         AddSystem(_window);
         AddSystem(_renderer);
