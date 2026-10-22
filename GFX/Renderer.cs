@@ -17,7 +17,7 @@ public class Renderer : ISystem
         GL.ClearColor(0.2f, 0.4f, 0.5f, 1.0f); // backround color 
 
        
-        var basicShader = ShaderLoader.Load("Shaders/basic2d.vert", "Shaders/basic2d.frag");
+        var basicShader = ShaderLoader.Load("Resources/basic2d.vert", "Resources/basic2d.frag");
         Shaders.AddShader("basic2d", basicShader);
 
     }
@@ -26,6 +26,7 @@ public class Renderer : ISystem
     {
         ClearScreen();
 
+        
         foreach (var renderable in renderables)
         {
             renderable.Shader.Use();

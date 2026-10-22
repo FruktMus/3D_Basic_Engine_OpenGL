@@ -27,6 +27,7 @@
                 FixedUpdate(_gameLoop.FixedDeltaTime);
         }
 
+        Console.WriteLine("Shutting down...");
         ShutDown();
     }
 
@@ -36,6 +37,7 @@
         _window = new Window(_camera);
         _renderer = new Renderer(_window);
 
+        AddSystem(_camera);
         AddSystem(_window);
         AddSystem(_renderer);
         _world.Start();
@@ -43,6 +45,7 @@
 
     private void Update(float deltaTime)
     {
+        _renderer?.Render(_world.Renderables);
         UpdateSystems();
         _world.Update(deltaTime);
     }

@@ -1,6 +1,7 @@
 ﻿public class World
 {
     private List<MonoBehaviour> _behaviours = new();
+    public List<Renderable> Renderables = new(); 
 
     public void Start()
     {

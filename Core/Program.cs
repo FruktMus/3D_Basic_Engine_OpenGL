@@ -14,9 +14,8 @@ class Program
 
 //structure plans 
 //World is more responisble for the monobehaviour more type stuff 
-//Game is more responsible for the ISystem type stuff     // follow more webgl project structure 
-// resources(shader, texture, Mesh...) should be IDisposable instead of ISystem(not really part of system) //Fixa nästa fredag
-
+//Game is more responsible for the ISystem type stuff 
+ 
 //maybe use assetmanager to manage mesh, texture.   use shadermanager to manage shader.
 //need to fix ordering of systems in game loop. Eg have to shutdown renderer before window. maybe have a system manager that manages the systems and their order.
 

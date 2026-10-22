@@ -7,7 +7,7 @@ public class Mesh : IDisposable
     private int _ebo { get; }
     public int IndexCount { get; }
 
-
+     
     public Mesh(VertexData data)
     {
         _vao = GL.GenVertexArray();
