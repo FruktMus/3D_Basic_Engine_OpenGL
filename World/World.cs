@@ -1,12 +1,19 @@
 ﻿public class World
 {
     private List<MonoBehaviour> _behaviours = new();
-    public List<Renderable> Renderables = new(); 
+    private AssetManager _assetManager;
+    public List<Renderable> Renderables = new();
+    public Camera Camera = new Camera();
+
+    public World(AssetManager assetManager)
+    {
+        _assetManager = assetManager;
+    }
 
     public void Start()
     {
-
-    }
+        AddBehaviour(Camera);
+    } 
 
     public void Update(float deltaTime)
     {

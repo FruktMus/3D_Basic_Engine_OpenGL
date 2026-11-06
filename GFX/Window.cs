@@ -65,7 +65,7 @@ public class Window : ISystem
         Vector2i screenSize = new Vector2i(e.Width, e.Height) * _zoomLevel;
         float aspectRatio = (float)screenSize.X / screenSize.Y;
 
-        _camera.UpdateProjection(aspectRatio);
+        _camera.UpdateProjection(aspectRatio); // Update the camera's projection matrix based on the new aspect ratio
     }
 
     private void OnClosing(CancelEventArgs e)

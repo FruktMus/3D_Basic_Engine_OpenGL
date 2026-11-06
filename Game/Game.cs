@@ -1,8 +1,8 @@
 ﻿public class Game
 {
-    private readonly World _world = new World();
-    private Window? _window;// = new Window();
-    private Camera? _camera;
+    private World? _world;
+    private AssetManager _assetManager = new AssetManager();
+    private Window? _window;
     private readonly GameLoop _gameLoop = new GameLoop();
     private Renderer? _renderer;
 
@@ -33,19 +33,21 @@
 
     private void Start()
     {
-        _camera = new Camera();
-        _window = new Window(_camera);
+        _world = new World(_assetManager); //FLAG kanske måste fixa world kan vara null och sådant kanske istället kan skicka assetmanager in i start()???
+        _window = new Window(_world.Camera); // Fungerar kanske med att passa camera såhär       
         _renderer = new Renderer(_window);
 
-        AddSystem(_camera);
+        
         AddSystem(_window);
         AddSystem(_renderer);
+
         _world.Start();
     }
 
     private void Update(float deltaTime)
     {
-        _renderer?.Render(_world.Renderables);
+        _renderer?.Render(_world.Renderables, _world.Camera);
+
         UpdateSystems();
         _world.Update(deltaTime);
     }
@@ -74,6 +76,7 @@
         {
             system.Shutdown();
         }
+        _assetManager.Dispose();//FLAG ev temp kanske fixar en list med alla disposables sedan
     }
 
 }

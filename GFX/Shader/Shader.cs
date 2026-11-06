@@ -101,7 +101,6 @@ public class Shader : IDisposable
         GL.Uniform1(location, value);
     }
 
-
     public void Dispose()
     {
         GL.DeleteProgram(program);

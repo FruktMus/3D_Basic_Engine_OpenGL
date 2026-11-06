@@ -11,7 +11,7 @@ public class Camera : MonoBehaviour
 
     public override void Update(float deltaTime)
     {
-        
+        view = Matrix4.LookAt(Transform.Position, Transform.Position + Transform.Forward(), Transform.Up());
     }
 
     public void UpdateProjection(float aspectRatio)
@@ -19,7 +19,7 @@ public class Camera : MonoBehaviour
         float near = 0.1f;
         float far = 1000f;
 
-        Matrix4 projection = Matrix4.CreatePerspectiveFieldOfView
+        projection = Matrix4.CreatePerspectiveFieldOfView
         (
             MathHelper.DegreesToRadians(_fov), 
             aspectRatio, 

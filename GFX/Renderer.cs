@@ -10,30 +10,28 @@ public class Renderer : ISystem
         _window = window;
     }
 
-    public void Initialize()
+    public void Initialize() 
     {
         _window.MakeCurrent();
 
         GL.ClearColor(0.2f, 0.4f, 0.5f, 1.0f); // backround color 
-
-       
-        var basicShader = ShaderLoader.Load("Resources/basic2d.vert", "Resources/basic2d.frag");
-        Shaders.AddShader("basic2d", basicShader);
-
     }
 
-    public void Render(List<Renderable> renderables) 
+    public void Render(List<Renderable> renderables, Camera camera) 
     {
         ClearScreen();
-
         
         foreach (var renderable in renderables)
         {
             renderable.Shader.Use();
-            renderable.Mesh.Bind();
-            GL.DrawElements(PrimitiveType.Triangles, renderable.Mesh.IndexCount, DrawElementsType.UnsignedInt, 0);
-        }
 
+            renderable.Shader.UniformMat4("uView", camera.view);
+            renderable.Shader.UniformMat4("uProjection", camera.projection);
+            //renderable.Shader.UniformMat4("uModel", renderable.Transform.Matrix);
+
+            renderable.Mesh.Bind();
+            GL.DrawElements(PrimitiveType.Triangles, renderable.Mesh.IndexCount, DrawElementsType.UnsignedInt, 0); // FLAG //Assumes the use of unsigned int and triangles
+        }
     }
 
     void ClearScreen()
@@ -43,7 +41,7 @@ public class Renderer : ISystem
 
     public void Shutdown()
     {
-        Shaders.Dispose();
+
     }
 
 }
