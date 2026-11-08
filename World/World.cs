@@ -1,9 +1,10 @@
-﻿public class World
+﻿public class World : IDisposable
 {
     private List<MonoBehaviour> _behaviours = new();
     private AssetManager _assetManager;
     public List<Renderable> Renderables = new();
     public Camera Camera = new Camera();
+    private Quad quad;
 
     public World(AssetManager assetManager)
     {
@@ -13,6 +14,8 @@
     public void Start()
     {
         AddBehaviour(Camera);
+        quad = new Quad(_assetManager);
+        Renderables.Add(quad.Renderable);
     } 
 
     public void Update(float deltaTime)
@@ -50,5 +53,9 @@
         behaviour.Start();
     }
 
+    public void Dispose() //FLAG ASSETMANAGER IS CREATED INSIDE GAME dont know what do do now :/
+    {
+        _assetManager.Dispose();
+    }
 
 }

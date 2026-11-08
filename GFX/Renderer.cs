@@ -20,11 +20,21 @@ public class Renderer : ISystem
     public void Render(List<Renderable> renderables, Camera camera) 
     {
         ClearScreen();
-        
+
+        /* foreach (var shaderGroup in renderables.ShaderGroup) ////////////// FLAG //Group renderables by shader in the future
+            shader = shaderGroup.Key;
+
+            renderable.shader.Use();
+            renderable.shader.UniformMat4("uView", camera.view);
+            renderable.shader.UniformMat4("uProjection", camera.projection);
+
+            foreach (var renderable in shaderGroup)
+            //Draw Calls
+         */
+
         foreach (var renderable in renderables)
         {
             renderable.Shader.Use();
-
             renderable.Shader.UniformMat4("uView", camera.view);
             renderable.Shader.UniformMat4("uProjection", camera.projection);
             //renderable.Shader.UniformMat4("uModel", renderable.Transform.Matrix);

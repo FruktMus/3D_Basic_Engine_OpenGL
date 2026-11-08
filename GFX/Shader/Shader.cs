@@ -16,7 +16,7 @@ public class Shader : IDisposable
 
     private int CreateShader(ShaderType type, string source)
     {
-        int shader = GL.CreateShader(type);
+        int shader = GL.CreateShader(type);// FLAG System.InvalidOperationException: 'You need to initialize the OpenGL binding first by calling LoadBindings() or creating a compatible OpenGL window.' //ERROR
         GL.ShaderSource(shader, source);
         GL.CompileShader(shader);
         CheckShaderCompile(shader);

@@ -1,7 +1,7 @@
 ﻿public class Game
 {
     private World? _world;
-    private AssetManager _assetManager = new AssetManager();
+    private AssetManager _assetManager = new AssetManager(); // FLAG teori: assetmanager måste skapas efter att window har skapats för en valid opengl context annars System.InvalidOperationException: 'You need to initialize the OpenGL binding first by calling LoadBindings() or creating a compatible OpenGL window.'
     private Window? _window;
     private readonly GameLoop _gameLoop = new GameLoop();
     private Renderer? _renderer;
@@ -34,7 +34,7 @@
     private void Start()
     {
         _world = new World(_assetManager); //FLAG kanske måste fixa world kan vara null och sådant kanske istället kan skicka assetmanager in i start()???
-        _window = new Window(_world.Camera); // Fungerar kanske med att passa camera såhär       
+        _window = new Window(_world.Camera); // Fungerar kanske med att passa camera såhär       //FLAG tror inte man kan passa camera såhär kanske kan göra det i någon form av Start() istället
         _renderer = new Renderer(_window);
 
         

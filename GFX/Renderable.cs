@@ -8,6 +8,6 @@
     {
         Mesh = mesh;
         Shader = shader;
-        Transform = transform;
+        Transform = transform; 
     }
 }

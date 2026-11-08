@@ -7,7 +7,7 @@ public class Transform
     //public Matrix4 LocalMatrix { get; private set; } = Matrix4.Identity; // expand on this later for transform hierarchy 
 
     public Matrix4 Matrix { get; private set; } = Matrix4.Identity;
-    private Vector3 _position;
+    private Vector3 _position = Vector3.Zero;
     private Quaternion _rotation = Quaternion.Identity;
     private Vector3 _scale = Vector3.One;
 

@@ -6,7 +6,7 @@ public class VertexData
     public uint[] Indices { get; }
     public float[] Vertices { get; }
     public VertexAttribute[] Attributes { get; }
-    //public PrimitiveType PrimitiveType { get; } //FLAG later use public PrimitiveType PrimitiveType to render different things e.g . points, lines, triangles, trianglestrip.
+    
 
     public VertexData(
         int stride,
@@ -46,6 +46,7 @@ public class VertexData
                     Offset);
                 break;
             }
+            //FLAG varför ingen vertexAttribDivisor???
         }
     }
 
@@ -54,3 +55,9 @@ public class VertexData
         Float
     }
 }
+
+//TODO: 
+//public PrimitiveType PrimitiveType { get; } //FLAG later use public PrimitiveType PrimitiveType to render different things e.g . points, lines, triangles, trianglestrip.
+//VertexDataType. support int and potentially other attribute types
+//VertexCount calculated from vertices.length
+//Validation check that attribute offsets and component counts fit inside the stride
