@@ -4,7 +4,8 @@
     private AssetManager _assetManager;
     public List<Renderable> Renderables = new();
     public Camera Camera = new Camera();
-    private Quad quad;
+
+    private Quad? quad;
 
     public World(AssetManager assetManager)
     {
@@ -53,9 +54,9 @@
         behaviour.Start();
     }
 
-    public void Dispose() //FLAG ASSETMANAGER IS CREATED INSIDE GAME dont know what do do now :/
+    public void Dispose()
     {
-        _assetManager.Dispose();
+
     }
 
 }

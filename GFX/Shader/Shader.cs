@@ -3,20 +3,20 @@ using OpenTK.Mathematics;
 
 public class Shader : IDisposable
 {
-    public int program { get; }
+    public int Program { get; }
 
     public Shader(string vertexSource, string fragmentSource)
     {
         int vertexShader = CreateShader(ShaderType.VertexShader, vertexSource);
         int fragmentShader = CreateShader(ShaderType.FragmentShader, fragmentSource);
-        program = CreateShaderProgram(vertexShader, fragmentShader);
+        Program = CreateShaderProgram(vertexShader, fragmentShader);
         GL.DeleteShader(vertexShader);
         GL.DeleteShader(fragmentShader);
     }
 
     private int CreateShader(ShaderType type, string source)
     {
-        int shader = GL.CreateShader(type);// FLAG System.InvalidOperationException: 'You need to initialize the OpenGL binding first by calling LoadBindings() or creating a compatible OpenGL window.' //ERROR
+        int shader = GL.CreateShader(type);
         GL.ShaderSource(shader, source);
         GL.CompileShader(shader);
         CheckShaderCompile(shader);
@@ -57,12 +57,12 @@ public class Shader : IDisposable
 
     public void Use()
     {
-        GL.UseProgram(program);
+        GL.UseProgram(Program);
     }
 
     public int UniformLoc(string name)
     {
-        int location = GL.GetUniformLocation(program, name);
+        int location = GL.GetUniformLocation(Program, name);
         return location;
     }
 
@@ -103,6 +103,13 @@ public class Shader : IDisposable
 
     public void Dispose()
     {
-        GL.DeleteProgram(program);
+        GL.DeleteProgram(Program);
     }
 }
+
+
+/* TODO:
+    Constructor can leak OpenGL resources. If a shader fails compilation or linking, the created shader objects and program should be deleted to avoid resource leaks.
+    Cache uniform locations to avoid repeated calls to GL.GetUniformLocation, which can be expensive.
+    Check for invalid uniform locations
+*/

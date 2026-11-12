@@ -12,17 +12,31 @@
         LoadMeshes();
     }
 
+    /*
+    public void Initialize() //FLAG fixa detta istället
+    {
+        LoadShaders();
+        LoadMeshes();
+    }*/
+
     private void LoadShaders()
     {
-        var basicShader = ShaderLoader.Load("Resources/Shaders/basic2d.vert", "Resources/Shaders/basic2d.frag");
-        Shaders.AddShader(BuiltInShader.Basic2D, basicShader);
+        try
+        {
+            var basicShader = ShaderLoader.Load("Resources/Shaders/basic2d.vert", "Resources/Shaders/basic2d.frag");
+            Shaders.AddShader(BuiltInShader.Basic2D, basicShader);
+        }
+        catch (Exception ex)
+        {
+            throw new Exception("Failed to load built-in shaders.", ex);
+        }
     }
 
     private void LoadMeshes()
     {
         var quadData = new QuadData();
-        Meshes.AddMesh(BuiltInMesh.ColorQuad, quadData.Create(false)); // color 2d quad
-        Meshes.AddMesh(BuiltInMesh.TexturedQuad, quadData.Create(true)); // texture 2d quad
+        Meshes.AddMesh(BuiltInMesh.ColorQuad, quadData.Create(false)); // color 2d quad      //FLAG does not support custom meshes
+        Meshes.AddMesh(BuiltInMesh.TextureQuad, quadData.Create(true)); // texture 2d quad
     }
 
     public void Dispose()
@@ -41,5 +55,5 @@ public enum BuiltInShader
 public enum BuiltInMesh
 {
     ColorQuad,
-    TexturedQuad
+    TextureQuad
 }

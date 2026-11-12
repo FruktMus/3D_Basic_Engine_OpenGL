@@ -46,7 +46,7 @@ public class VertexData
                     Offset);
                 break;
             }
-            //FLAG varför ingen vertexAttribDivisor???
+            //FLAG varför ingen vertexAttribDivisor? bara för instanced rendering?
         }
     }
 

@@ -5,7 +5,7 @@
 
     public Quad(AssetManager assets)
     {
-        Renderable = new Renderable(assets.Meshes.GetMesh(BuiltInMesh.ColorQuad), assets.Shaders.Get(BuiltInShader.Basic2D), _transform);
+        Renderable = new Renderable(assets.Meshes.GetMesh(BuiltInMesh.ColorQuad), assets.Shaders.Get("Basic2D"), _transform);
     }
 
 }

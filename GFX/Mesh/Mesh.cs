@@ -60,19 +60,6 @@ public class Mesh : IDisposable
         GL.BindVertexArray(_vao);
     }
 
-    /*   ////////////////Förmodligen bättre om renderer använder draw istället kanske använder denna temporärt dock
-    public void Draw()
-    {
-        Bind(); 
-
-        GL.DrawElements(
-            PrimitiveType.Triangles, 
-            IndexCount, 
-            DrawElementsType.UnsignedInt, 
-            0
-        );
-    }*/
-
     public void Dispose()
     {
         GL.DeleteVertexArray(_vao);
@@ -81,3 +68,8 @@ public class Mesh : IDisposable
     }
 
 }
+
+/*TODO:
+    if Atttrib.configure throws exception, dispose of the mesh and throw exception. 
+    Allow Dynamic draw. Maybe inside data.
+*/

@@ -13,6 +13,7 @@ public class Renderer : ISystem
     public void Initialize() 
     {
         _window.MakeCurrent();
+        _window.LoadBindings();
 
         GL.ClearColor(0.2f, 0.4f, 0.5f, 1.0f); // backround color 
     }
@@ -32,12 +33,15 @@ public class Renderer : ISystem
             //Draw Calls
          */
 
+        if (_window.ResizeRequest())// updatera projecton för denna camera
+            camera.UpdateProjection(_window.AspectRatio);
+
         foreach (var renderable in renderables)
         {
             renderable.Shader.Use();
             renderable.Shader.UniformMat4("uView", camera.view);
             renderable.Shader.UniformMat4("uProjection", camera.projection);
-            //renderable.Shader.UniformMat4("uModel", renderable.Transform.Matrix);
+            renderable.Shader.UniformMat4("uModel", renderable.Transform.Matrix);
 
             renderable.Mesh.Bind();
             GL.DrawElements(PrimitiveType.Triangles, renderable.Mesh.IndexCount, DrawElementsType.UnsignedInt, 0); // FLAG //Assumes the use of unsigned int and triangles

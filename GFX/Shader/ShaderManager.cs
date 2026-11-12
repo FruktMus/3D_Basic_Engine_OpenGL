@@ -1,8 +1,8 @@
 ﻿public class ShaderManager : IDisposable
 {
-    private readonly Dictionary<BuiltInShader, Shader> _shaders = new();
+    private readonly Dictionary<string, Shader> _shaders = new();
 
-    public void AddShader(BuiltInShader name, Shader shader)
+    public void AddShader(string name, Shader shader)
     {
         if (_shaders.ContainsKey(name))
             throw new ArgumentException($"Shader with name '{name}' already exists.");
@@ -10,12 +10,24 @@
         _shaders.Add(name, shader);
     }
 
-    public Shader Get(BuiltInShader name)
+    public void AddShader(BuiltInShader builtInShader, Shader shader)
+    {
+        string name = builtInShader.GetName();
+        AddShader(name, shader);
+    }
+
+    public Shader Get(string name)
     {
         if (!_shaders.TryGetValue(name, out var shader))
             throw new KeyNotFoundException($"Shader with name '{name}' not found.");
         
         return shader;
+    }
+
+    public Shader Get(BuiltInShader builtInShader)
+    {
+        string name = builtInShader.GetName();
+        return Get(name);
     }
 
     public void Dispose()
