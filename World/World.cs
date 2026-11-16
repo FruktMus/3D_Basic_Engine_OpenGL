@@ -2,21 +2,29 @@
 {
     private List<MonoBehaviour> _behaviours = new();
     private AssetManager _assetManager;
+    private Input _inputs;
     public List<Renderable> Renderables = new();
     public Camera Camera = new Camera();
+    
 
-    private Quad? quad;
+    private Quad? quad; //FLAG TEMP
 
-    public World(AssetManager assetManager)
+    public World(AssetManager assetManager, Input inputs)
     {
         _assetManager = assetManager;
+        _inputs = inputs;
     }
 
     public void Start()
     {
         AddBehaviour(Camera);
+
+        // FLAG temporary quad for testing, remove later. Fix better world structure and add proper scene management(scene graph!?)
         quad = new Quad(_assetManager);
-        Renderables.Add(quad.Renderable);
+        AddBehaviour(quad);
+        Renderables.Add(quad.Renderables[0]);
+        Renderables.Add(quad.Renderables[1]);
+        //
     } 
 
     public void Update(float deltaTime)
@@ -53,7 +61,7 @@
         _behaviours.Add(behaviour);
         behaviour.Start();
     }
-
+     
     public void Dispose()
     {
 

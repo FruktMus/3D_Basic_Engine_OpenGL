@@ -1,13 +1,15 @@
-﻿public class Renderable
+﻿using System.Numerics;
+
+public class Renderable
 {
     public Mesh Mesh { get; }
-    public Shader Shader { get; }
+    public Material Material { get; }
     public Transform Transform { get; }
     
-    public Renderable(Mesh mesh, Shader shader, Transform transform)
+    public Renderable(Mesh mesh, Material material, Transform transform)// public Renderable(Mesh mesh, Shader shader, Transform transform)
     {
         Mesh = mesh;
-        Shader = shader;
+        Material = material;
         Transform = transform; 
     }
 }

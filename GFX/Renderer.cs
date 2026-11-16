@@ -38,12 +38,18 @@ public class Renderer : ISystem
 
         foreach (var renderable in renderables)
         {
-            renderable.Shader.Use();
-            renderable.Shader.UniformMat4("uView", camera.view);
-            renderable.Shader.UniformMat4("uProjection", camera.projection);
-            renderable.Shader.UniformMat4("uModel", renderable.Transform.Matrix);
+            var material = renderable.Material;
+            var shader = material.Shader;
+
+            shader.Use();
+            shader.UniformMat4("uView", camera.view);
+            shader.UniformMat4("uProjection", camera.projection);
+            shader.UniformMat4("uModel", renderable.Transform.Matrix);
+
+            material.Apply();
 
             renderable.Mesh.Bind();
+
             GL.DrawElements(PrimitiveType.Triangles, renderable.Mesh.IndexCount, DrawElementsType.UnsignedInt, 0); // FLAG //Assumes the use of unsigned int and triangles
         }
     }
@@ -59,3 +65,9 @@ public class Renderer : ISystem
     }
 
 }
+
+/*TODO: 
+    Fix depth buffer and enable depth testing in the renderer.    
+    Need to fix window creation to include depth buffer.
+
+*/

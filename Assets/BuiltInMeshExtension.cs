@@ -5,8 +5,7 @@ public static class BuiltInMeshExtension
     {
         return mesh switch
         {
-            BuiltInMesh.ColorQuad => "ColorQuad",
-            BuiltInMesh.TextureQuad => "TextureQuad",
+            BuiltInMesh.BasicQuad => "BasicQuad",
             _ => throw new ArgumentOutOfRangeException(nameof(mesh), mesh, null)
         };
     }

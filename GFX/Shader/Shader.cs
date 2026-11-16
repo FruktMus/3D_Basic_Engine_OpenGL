@@ -101,6 +101,12 @@ public class Shader : IDisposable
         GL.Uniform1(location, value);
     }
 
+    public void UniformBool(string name, bool value)
+    {
+        int location = UniformLoc(name);
+        GL.Uniform1(location, value ? 1 : 0);
+    }
+
     public void Dispose()
     {
         GL.DeleteProgram(Program);

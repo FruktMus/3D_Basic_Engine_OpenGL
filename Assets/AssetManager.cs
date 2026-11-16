@@ -1,4 +1,6 @@
-﻿public class AssetManager : IDisposable
+﻿using System.Drawing;
+
+public class AssetManager : IDisposable
 {
     public ShaderManager Shaders { get; }
     public MeshManager Meshes { get; }
@@ -7,17 +9,13 @@
     {
         Shaders = new ShaderManager();
         Meshes = new MeshManager();
-
-        LoadShaders();
-        LoadMeshes();
     }
 
-    /*
-    public void Initialize() //FLAG fixa detta istället
+    public void Initialize() 
     {
         LoadShaders();
         LoadMeshes();
-    }*/
+    }
 
     private void LoadShaders()
     {
@@ -35,8 +33,7 @@
     private void LoadMeshes()
     {
         var quadData = new QuadData();
-        Meshes.AddMesh(BuiltInMesh.ColorQuad, quadData.Create(false)); // color 2d quad      //FLAG does not support custom meshes
-        Meshes.AddMesh(BuiltInMesh.TextureQuad, quadData.Create(true)); // texture 2d quad
+        Meshes.AddMesh(BuiltInMesh.BasicQuad, quadData.Create()); // basic 2d quad
     }
 
     public void Dispose()
@@ -54,6 +51,5 @@ public enum BuiltInShader
 
 public enum BuiltInMesh
 {
-    ColorQuad,
-    TextureQuad
+    BasicQuad,
 }

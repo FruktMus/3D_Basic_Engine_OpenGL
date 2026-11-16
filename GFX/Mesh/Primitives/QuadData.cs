@@ -1,6 +1,8 @@
-﻿public class QuadData
+﻿using System.Drawing;
+
+public class QuadData
 { 
-    public VertexData Create(bool textured) //FLAG fixa så att man kan välja färg 
+    public VertexData Create() 
     {
         int stride; 
 
@@ -13,45 +15,22 @@
         float[] vertices;
 
         VertexData.VertexAttribute[] attributes;
-        
-        switch (textured)
+
+        stride = 5 * 4; // 5 floats per vertex, 4 bytes per float
+
+        attributes = new[]
         {
-            case true:
-                stride = 5 * 4; // 5 floats per vertex, 4 bytes per float
+            new VertexData.VertexAttribute(0, 3, VertexData.VertexDataType.Float, false, 0),
+            new VertexData.VertexAttribute(1, 2, VertexData.VertexDataType.Float, false, 3 * 4)
+        };
 
-                attributes = new[]
-                {
-                    new VertexData.VertexAttribute(0, 3, VertexData.VertexDataType.Float, false, 0),
-                    new VertexData.VertexAttribute(1, 2, VertexData.VertexDataType.Float, false, 3 * 4)
-                };
-                
-                vertices = new float[]
-                {
-                    -0.5f, -0.5f, 0f,   0f, 0f,
-                    0.5f, -0.5f, 0f,    1f, 0f,
-                    0.5f, 0.5f, 0f,     1f, 1f,
-                    -0.5f, 0.5f, 0f,    0f, 1f
-                };
-                break;
-
-            case false:
-                stride = 7 * 4; // 7 floats per vertex, 4 bytes per float
-
-                attributes = new[]
-                {
-                    new VertexData.VertexAttribute(0, 3, VertexData.VertexDataType.Float, false, 0),
-                    new VertexData.VertexAttribute(1, 4, VertexData.VertexDataType.Float, false, 3 * 4)
-                };
-
-                vertices = new float[]
-                {
-                    -0.5f, -0.5f, 1f,   0f, 1f, 0f, 1f,
-                    0.5f, -0.5f, 1f,    0f, 1f, 0f, 1f,
-                    0.5f, 0.5f, 1f,     0f, 1f, 0f, 1f,
-                    -0.5f, 0.5f, 1f,    0f, 1f, 0f, 1f
-                };
-                break;
-        }
+        vertices = new float[]
+        {
+            -0.5f, -0.5f, 0f,     0f, 0f,
+            0.5f, -0.5f, 0f,      1f, 0f,
+            0.5f, 0.5f, 0f,       1f, 1f,
+            -0.5f, 0.5f, 0f,      0f, 1f
+        };
 
         return new VertexData(stride, indices, vertices, attributes);
     }
