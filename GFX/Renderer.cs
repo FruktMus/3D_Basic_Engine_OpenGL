@@ -16,6 +16,8 @@ public class Renderer : ISystem
         _window.LoadBindings();
 
         GL.ClearColor(0.2f, 0.4f, 0.5f, 1.0f); // backround color 
+        GL.Enable(EnableCap.DepthTest);
+        GL.DepthFunc(DepthFunction.Less);
     }
 
     public void Render(List<Renderable> renderables, Camera camera) 

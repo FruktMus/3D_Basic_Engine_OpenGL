@@ -37,7 +37,14 @@ public class Window : ISystem
         var nativeSettings = new NativeWindowSettings()
         {
             Title = "Game Window",
-            ClientSize = _windowSize
+            ClientSize = _windowSize,
+
+            NumberOfSamples = 4, // Samples per pixel MSAA level
+            DepthBits = 24, // precision of depth buffer
+            StencilBits = 8, // used to control where rendering is allowed
+
+            APIVersion = new Version(3, 3),
+            Profile = ContextProfile.Core
         };
 
         _window = new NativeWindow(nativeSettings);

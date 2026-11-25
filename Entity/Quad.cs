@@ -10,7 +10,7 @@ public class Quad : MonoBehaviour
 
     public Quad(AssetManager assets)
     {
-        _transform.Position = new Vector3(0, 0, 1f);
+        _transform.Position = new Vector3(0, 0, 2f);
         _transform.Rotation = new Vector3(0, -45f, 0); 
         _transform.UpdateMatrix();
 
@@ -24,7 +24,7 @@ public class Quad : MonoBehaviour
 
         Renderables.Add(new Renderable(assets.Meshes.GetMesh(BuiltInMesh.BasicQuad), material, _transform));
 
-        _transform2.Position = new Vector3(0, 0, 1f);
+        _transform2.Position = new Vector3(0, 0, 2f);
         _transform2.Rotation = new Vector3(0, 45f, 0);
         _transform2.UpdateMatrix();
 
@@ -37,9 +37,9 @@ public class Quad : MonoBehaviour
     public override void Update(float deltaTime)
     {
         /*
-        _transform.Rotation += new Vector3(45f * deltaTime, 45f * deltaTime, 45f * deltaTime);
+        _transform.Rotation += new Vector3(45f * deltaTime, 45f * deltaTime, 0);
         _transform.UpdateMatrix();
-        _transform2.Rotation += new Vector3(-45f * deltaTime, -45f * deltaTime, -45f * deltaTime);
+        _transform2.Rotation += new Vector3(45f * deltaTime, 45f * deltaTime, 0);
         _transform2.UpdateMatrix();*/
     }
 
