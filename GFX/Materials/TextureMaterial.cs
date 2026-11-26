@@ -6,6 +6,7 @@ public class TextureMaterial : Material //FLAG fortsätt här
     {
         Texture = texture;
     } 
+
     public override void Apply()
     {
         Shader.Use();

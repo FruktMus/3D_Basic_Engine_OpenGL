@@ -6,13 +6,15 @@
     private AssetManager _assetManager = new AssetManager(); // IDisposable
     private World _world; // IDisposable
     private Input _inputs = new Input();
+    private GameContext _gameContext;
 
     private readonly List<ISystem> _systems = new();
     
     public Game()
     {
+        _gameContext = new GameContext(_assetManager, _inputs);
         _renderer = new Renderer(_window);
-        _world = new World(_assetManager, _inputs);
+        _world = new World(_gameContext);
     }
 
     public void Run()

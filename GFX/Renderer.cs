@@ -69,7 +69,6 @@ public class Renderer : ISystem
 }
 
 /*TODO: 
-    Fix depth buffer and enable depth testing in the renderer.    
-    Need to fix window creation to include depth buffer.
+    Group renderables by shader
 
 */

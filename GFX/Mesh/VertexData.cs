@@ -6,19 +6,21 @@ public class VertexData
     public uint[] Indices { get; }
     public float[] Vertices { get; }
     public VertexAttribute[] Attributes { get; }
-    
+    public PrimitiveType PrimitiveType { get; }
 
     public VertexData(
         int stride,
         uint[] indices, 
         float[] vertices,
-        VertexAttribute[] attributes
+        VertexAttribute[] attributes,
+        PrimitiveType primitiveType
     ) 
     {
         Stride = stride;
         Indices = indices;
         Vertices = vertices;
         Attributes = attributes;
+        PrimitiveType = primitiveType;
     }
 
     public readonly record struct VertexAttribute
@@ -46,7 +48,6 @@ public class VertexData
                     Offset);
                 break;
             }
-            //FLAG varför ingen vertexAttribDivisor? bara för instanced rendering?
         }
     }
 

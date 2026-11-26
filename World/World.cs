@@ -1,18 +1,16 @@
 ﻿public class World : IDisposable
 {
     private List<MonoBehaviour> _behaviours = new();
-    private AssetManager _assetManager;
-    private Input _inputs;
+    private GameContext _gameContext;
     public List<Renderable> Renderables = new();
     public Camera Camera = new Camera();
     
 
     private Quad? quad; //FLAG TEMP
 
-    public World(AssetManager assetManager, Input inputs)
+    public World(GameContext context)
     {
-        _assetManager = assetManager;
-        _inputs = inputs;
+        _gameContext = context;
     }
 
     public void Start()
@@ -20,10 +18,11 @@
         AddBehaviour(Camera);
 
         // FLAG temporary quad for testing, remove later. Fix better world structure and add proper scene management(scene graph!?)
-        quad = new Quad(_assetManager);
+
+        quad = new Quad();
         AddBehaviour(quad);
         Renderables.Add(quad.Renderables[0]);
-        Renderables.Add(quad.Renderables[1]);
+        //Renderables.Add(quad.Renderables[1]);
         //
     } 
 
@@ -59,6 +58,7 @@
     public void AddBehaviour(MonoBehaviour behaviour) 
     {
         _behaviours.Add(behaviour);
+        behaviour.SetContext(_gameContext);
         behaviour.Start();
     }
      
@@ -66,5 +66,7 @@
     {
 
     }
-
 }
+/* TODO:
+    fix world structure and add proper scene management(scene graph)
+ */

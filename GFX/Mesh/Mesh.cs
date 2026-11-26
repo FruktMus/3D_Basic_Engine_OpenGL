@@ -6,6 +6,7 @@ public class Mesh : IDisposable
     private int _vbo { get; }
     private int _ebo { get; }
     public int IndexCount { get; }
+    public PrimitiveType PrimitiveType { get; }
 
      
     public Mesh(VertexData data)
@@ -35,6 +36,8 @@ public class Mesh : IDisposable
         {
             attrib.Configure(data.Stride);
         }
+
+        PrimitiveType = data.PrimitiveType;
 
 
 

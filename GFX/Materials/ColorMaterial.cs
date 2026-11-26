@@ -8,5 +8,6 @@ public class ColorMaterial : Material
     {
         Shader.Use();
         Shader.UniformVec4("uColor", Color);
+        Shader.UniformBool("uUseTexture", false);
     }
 }

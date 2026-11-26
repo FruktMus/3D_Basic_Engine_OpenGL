@@ -1,6 +1,4 @@
-﻿using System.Drawing;
-
-public class QuadData
+﻿public class QuadData
 { 
     public VertexData Create() 
     {
@@ -32,6 +30,6 @@ public class QuadData
             -0.5f, 0.5f, 0f,      0f, 1f
         };
 
-        return new VertexData(stride, indices, vertices, attributes);
+        return new VertexData(stride, indices, vertices, attributes, OpenTK.Graphics.OpenGL4.PrimitiveType.Triangles);
     }
 }

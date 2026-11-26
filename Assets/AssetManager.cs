@@ -34,6 +34,8 @@ public class AssetManager : IDisposable
     {
         var quadData = new QuadData();
         Meshes.AddMesh(BuiltInMesh.BasicQuad, quadData.Create()); // basic 2d quad
+        var cubeData = new CubeData();
+        Meshes.AddMesh(BuiltInMesh.BasicCube, cubeData.Create()); // basic 3d cube
     }
 
     public void Dispose()
@@ -52,4 +54,5 @@ public enum BuiltInShader
 public enum BuiltInMesh
 {
     BasicQuad,
+    BasicCube,
 }
